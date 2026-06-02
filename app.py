@@ -392,33 +392,22 @@ if st.button("Optimize Route 🚀"):
 
 
 
-if total_distance_km < 8:
 
-    insight = (
-        "Excellent route efficiency. Customers are clustered closely, minimizing travel time and fuel consumption."
-    )
-
-elif total_distance_km < 15:
-
-    insight = (
-        "Good route optimization achieved with balanced travel distance and delivery coverage."
-    )
-
-else:
-
-    insight = (
-        "Long delivery route detected. Consider adding a secondary warehouse or redistributing delivery zones."
-    )
 
     st.success(
         "Optimal Route Generated Successfully"
     )
-
+    
     st.markdown("## 🛣 Optimized Route")
 
     route_text = "Warehouse → " + " → ".join(best_route_order)
 
+    
+
     st.write(route_text)
+
+   
+
     metric1, metric2, metric3, metric4 = st.columns(4)
 
     with metric1:
@@ -592,14 +581,22 @@ st.divider()
 
 st.markdown("## 🚦 Route Bottleneck Analysis")
 
-route_bottlenecks = best_route_order[1:4]
+route_bottlenecks = best_route_order[1:]
+
+if len(route_bottlenecks) == 0:
+    st.write("No bottlenecks found.")
 
 for i, hub in enumerate(route_bottlenecks, start=1):
     st.write(f"{i}. {hub}")
 
-st.info(
-    f"Potential delay risk detected near {route_bottlenecks[0]}. Monitoring this corridor may improve delivery performance."
-)
+if len(route_bottlenecks) > 0:
+    st.info(
+        f"Potential delay risk detected near {route_bottlenecks[0]}."
+    )
+else:
+    st.info(
+        "No major bottlenecks detected for this route."
+    )
 
     # MAP SECTION
 
