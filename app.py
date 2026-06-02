@@ -305,7 +305,7 @@ if st.button("Optimize Route 🚀"):
 
     try:
 
-        total_distance_km, eta, predicted_eta, segment_distances, best_route_order = optimize_route(
+        total_distance_km, eta, predicted_eta, segment_distances, best_route_order, best_route_nodes = optimize_route(
             warehouse,
             customer1,
             customer2,
@@ -432,7 +432,7 @@ else:
 
         st.metric(
             "ETA",
-            f"{eta} hours"
+            f"{round(eta * 60)} min"
         )
 
     with metric3:
@@ -446,7 +446,7 @@ else:
 
       st.metric(
         "🤖 AI Predicted ETA",
-        f"{predicted_eta} hours"
+        f"{round(predicted_eta * 60)} min"
     ) 
       
     st.markdown("## ⚠️ Delay Risk Analysis")
@@ -590,20 +590,17 @@ st.success(
 )
 st.divider()
 
-st.markdown("## 🚦 Network Bottleneck Analysis")
+st.markdown("## 🚦 Route Bottleneck Analysis")
 
-hubs = get_bottleneck_hubs()
+route_bottlenecks = best_route_order[1:4]
 
-for i, hub in enumerate(hubs, start=1):
-
-    st.write(
-        f"{i}. {hub}"
-    )
+for i, hub in enumerate(route_bottlenecks, start=1):
+    st.write(f"{i}. {hub}")
 
 st.info(
-    f"High traffic concentration detected around bottleneck hub {hubs[0]}. "
-    "Delays at this location may impact multiple delivery routes."
+    f"Potential delay risk detected near {route_bottlenecks[0]}. Monitoring this corridor may improve delivery performance."
 )
+
     # MAP SECTION
 
 st.subheader("🗺 Route Visualization")

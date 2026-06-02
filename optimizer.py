@@ -298,6 +298,7 @@ def optimize_route(
         eta,
         predicted_eta,
         segment_distances,
-        best_route_order
-    )
+        best_route_order,
+        best_route_nodes
+)
 
