@@ -384,286 +384,296 @@ if st.button("Optimize Route 🚀"):
             insight = (
                 "Long delivery route detected. Consider adding a secondary warehouse or redistributing delivery zones."
             )
+            
+        st.success(
+        "Optimal Route Generated Successfully"
+        )
+
+    
+
+
+
+
+
+    
+    
+        st.markdown("## 🛣 Optimized Route")
+        route_text = "Warehouse → " + " → ".join(best_route_order)
+
+        
+
+        st.write(route_text)
+
+    
+
+        metric1, metric2, metric3, metric4 = st.columns(4)
+
+        with metric1:
+
+            st.metric(
+                "Total Distance",
+                f"{total_distance_km} km"
+            )
+
+        with metric2:
+
+            st.metric(
+                "ETA",
+                f"{round(eta * 60)} min"
+            )
+
+        with metric3:
+
+            st.metric(
+            "💰 Estimated Cost Saved",
+            f"₹{cost_saved:.2f}"
+            )
+      
+        with metric4:
+
+            st.metric(
+                "🤖 AI Predicted ETA",
+                f"{round(predicted_eta * 60)} min"
+            ) 
+      
+        st.markdown("## ⚠️ Delay Risk Analysis")
+
+        st.write(
+            f"Risk Level: {risk}"
+        )
+
+        delay = predicted_eta - eta
+
+        st.write(
+            f"Predicted Delay: {round(delay * 60, 1)} minutes"
+        ) 
+
+        if risk == "🔴 HIGH":
+
+            st.error(
+            "Route passes through high-risk network corridors. Delays are likely."
+            )
+
+        elif risk == "🟡 MEDIUM":
+
+            st.warning(
+                "Moderate traffic and bottleneck impact expected."
+            )
+
+        else:
+
+            st.success(
+                "Low delay risk detected."
+            )
+      
+        st.success(
+            "✅ Route optimized to reduce fuel cost and delivery time."
+        )
+        
+        st.markdown(
+            f"""
+            <div style="
+                background: rgba(30, 41, 59, 0.9);
+                padding: 18px 22px;
+                border-radius: 15px;
+                border-left: 5px solid #38bdf8;
+                margin-top: 20px;
+            ">
+
+            <h3 style="
+                color: #38bdf8;
+                margin-bottom: 10px;
+            ">
+
+            🤖 AI Insight
+
+            </h3>
+
+            <p style="
+                color: white;
+                font-size: 18px;
+                line-height: 1.6;
+            ">
+
+            {insight}
+
+            </p>
+
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+
+        st.markdown("## 📊 Route Distance Distribution")
+
+
+        labels = []
+
+        for i in range(len(segment_distances)):
+
+            labels.append(
+                f"Customer {i+1}"
+            )
+
+        sizes = segment_distances
+
+        colors = [
+            "#3b82f6",
+            "#f97316",
+            "#22c55e",
+            "#ef4444",
+            "#a855f7"
+        ]
+
+        fig, ax = plt.subplots(figsize=(4,4))
+
+        ax.pie(
+                sizes,
+                labels=labels,
+                colors=colors,
+                autopct='%1.1f%%',
+                startangle=90,
+                textprops={'color':"white", 'fontsize':12}
+            )
+
+        fig.patch.set_facecolor('#0f172a')
+
+        ax.set_facecolor('#0f172a')
+
+        ax.axis('equal')
+
+        st.pyplot(fig)
+
+   
+            
+
+        st.markdown("### 📈 Route Efficiency")
+
+        efficiency = max(
+            60,
+            min(
+                95,
+                int(100 - total_distance_km)
+            )
+        )
+
+        st.progress(efficiency)
+
+        st.markdown(
+            f"""
+            <h3 style='
+            color:white;
+            text-align:center;
+            '>
+
+            🚀 Efficiency Improved:
+            <span style="color:#22c55e;">
+            {efficiency}%
+            </span>
+
+            </h3>
+            """,
+            unsafe_allow_html=True
+        )
+
+        st.success(
+            "✅ Route optimized to reduce fuel cost and delivery time."
+        )
+
+   
+
+        st.divider()
+
+        st.markdown("## 🚦 Route Bottleneck Analysis")
+
+        route_bottlenecks = best_route_order[1:]
+
+        if len(route_bottlenecks) == 0:
+            st.write("No bottlenecks found.")
+
+        for i, hub in enumerate(route_bottlenecks, start=1):
+            st.write(f"{i}. {hub}")
+
+        if len(route_bottlenecks) > 0:
+            st.info(
+                f"Potential delay risk detected near {route_bottlenecks[0]}."
+            )
+        else:
+            
+            st.info(
+                "No major bottlenecks detected for this route."
+            )
+
+            # MAP SECTION
+
+        st.subheader("🗺 Route Visualization")
+
+        st.image(
+                "route.png",
+                caption="Optimized Delivery Route",
+                use_container_width=True
+            )
+        st.markdown("""
+
+        ### 🗺 Map Legend
+
+        🔴 Red Dots → Delivery Locations
+
+        🛣 Red Line → Optimized Route
+
+        🏢 Starting Point → Warehouse
+
+        """)
+
+            # TECH DETAILS
+
+        with st.expander("📘 Technical Details"):
+
+                st.write(
+                    "Algorithm Used: Travelling Salesman Problem (TSP)"
+                )
+
+                st.write(
+                    "Routing Engine: NetworkX"
+                )
+
+                st.write(
+                    "Map Source: OpenStreetMap + OSMnx"
+                )
+
+                st.write(
+                    "Optimization Goal: Minimize distance and ETA"
+                )
+
+        st.divider()
+
+        st.markdown("""
+
+        ## 📦 How It Works
+
+        1️⃣ Enter warehouse and customer locations
+
+        2️⃣ System calculates shortest delivery route
+
+        3️⃣ Optimized path is generated using Graph Theory
+
+        4️⃣ Distance and delivery time are reduced
+
+        """)
+
+        # =========================
+        # FOOTER
+        # =========================
+
+        st.divider()
+
+        st.caption(
+            "Developed by Team OptiRoute"
+        )
 
     except Exception as e:
 
         st.error(str(e))
         st.stop()
-
-
-
-
-
-    st.success(
-        "Optimal Route Generated Successfully"
-    )
-    
-    st.markdown("## 🛣 Optimized Route")
-
-    route_text = "Warehouse → " + " → ".join(best_route_order)
-
-    
-
-    st.write(route_text)
-
-   
-
-    metric1, metric2, metric3, metric4 = st.columns(4)
-
-    with metric1:
-
-        st.metric(
-            "Total Distance",
-            f"{total_distance_km} km"
-        )
-
-    with metric2:
-
-        st.metric(
-            "ETA",
-            f"{round(eta * 60)} min"
-        )
-
-    with metric3:
-
-      st.metric(
-        "💰 Estimated Cost Saved",
-        f"₹{cost_saved:.2f}"
-    )
-      
-    with metric4:
-
-      st.metric(
-        "🤖 AI Predicted ETA",
-        f"{round(predicted_eta * 60)} min"
-    ) 
-      
-    st.markdown("## ⚠️ Delay Risk Analysis")
-
-    st.write(
-        f"Risk Level: {risk}"
-    )
-    
-delay = predicted_eta - eta
-
-st.write(
-        f"Predicted Delay: {round(delay * 60, 1)} minutes"
-    ) 
-
-if risk == "🔴 HIGH":
-
-    st.error(
-        "Route passes through high-risk network corridors. Delays are likely."
-    )
-
-elif risk == "🟡 MEDIUM":
-
-        st.warning(
-            "Moderate traffic and bottleneck impact expected."
-        )
-
-else:
-
-        st.success(
-            "Low delay risk detected."
-        )
-      
-st.success(
-       "✅ Route optimized to reduce fuel cost and delivery time."
-    )
-        
-st.markdown(
-    f"""
-    <div style="
-    background: rgba(30, 41, 59, 0.9);
-    padding: 18px 22px;
-    border-radius: 15px;
-    border-left: 5px solid #38bdf8;
-    margin-top: 20px;
-    ">
-
-    <h3 style="
-    color: #38bdf8;
-    margin-bottom: 10px;
-    ">
-
-    🤖 AI Insight
-
-    </h3>
-
-    <p style="
-    color: white;
-    font-size: 18px;
-    line-height: 1.6;
-    ">
-
-    {insight}
-
-    </p>
-
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-
-st.markdown("## 📊 Route Distance Distribution")
-
-labels = []
-
-for i in range(len(segment_distances)):
-
-    labels.append(
-        f"Customer {i+1}"
-    )
-
-sizes = segment_distances
-
-colors = [
-    "#3b82f6",
-    "#f97316",
-    "#22c55e",
-    "#ef4444",
-    "#a855f7"
-]
-
-fig, ax = plt.subplots(figsize=(4,4))
-
-ax.pie(
-    sizes,
-    labels=labels,
-    colors=colors,
-    autopct='%1.1f%%',
-    startangle=90,
-    textprops={'color':"white", 'fontsize':12}
-)
-
-fig.patch.set_facecolor('#0f172a')
-
-ax.set_facecolor('#0f172a')
-
-ax.axis('equal')
-
-st.pyplot(fig)
-    
-
-st.markdown("### 📈 Route Efficiency")
-
-efficiency = max(
-    60,
-    min(
-        95,
-        int(100 - total_distance_km)
-    )
-)
-
-st.progress(efficiency)
-
-st.markdown(
-    f"""
-    <h3 style='
-    color:white;
-    text-align:center;
-    '>
-
-    🚀 Efficiency Improved:
-    <span style="color:#22c55e;">
-    {efficiency}%
-    </span>
-
-    </h3>
-    """,
-    unsafe_allow_html=True
-)
-
-st.success(
-    "✅ Route optimized to reduce fuel cost and delivery time."
-)
-st.divider()
-
-st.markdown("## 🚦 Route Bottleneck Analysis")
-
-route_bottlenecks = best_route_order[1:]
-
-if len(route_bottlenecks) == 0:
-    st.write("No bottlenecks found.")
-
-for i, hub in enumerate(route_bottlenecks, start=1):
-    st.write(f"{i}. {hub}")
-
-if len(route_bottlenecks) > 0:
-    st.info(
-        f"Potential delay risk detected near {route_bottlenecks[0]}."
-    )
-else:
-    st.info(
-        "No major bottlenecks detected for this route."
-    )
-
-    # MAP SECTION
-
-st.subheader("🗺 Route Visualization")
-
-st.image(
-        "route.png",
-        caption="Optimized Delivery Route",
-        use_container_width=True
-    )
-st.markdown("""
-
-### 🗺 Map Legend
-
-🔴 Red Dots → Delivery Locations
-
-🛣 Red Line → Optimized Route
-
-🏢 Starting Point → Warehouse
-
-""")
-
-    # TECH DETAILS
-
-with st.expander("📘 Technical Details"):
-
-        st.write(
-            "Algorithm Used: Travelling Salesman Problem (TSP)"
-        )
-
-        st.write(
-            "Routing Engine: NetworkX"
-        )
-
-        st.write(
-            "Map Source: OpenStreetMap + OSMnx"
-        )
-
-        st.write(
-            "Optimization Goal: Minimize distance and ETA"
-        )
-
-st.divider()
-
-st.markdown("""
-
-## 📦 How It Works
-
-1️⃣ Enter warehouse and customer locations
-
-2️⃣ System calculates shortest delivery route
-
-3️⃣ Optimized path is generated using Graph Theory
-
-4️⃣ Distance and delivery time are reduced
-
-""")
-
-# =========================
-# FOOTER
-# =========================
-
-st.divider()
-
-st.caption(
-    "Developed by Team OptiRoute"
-)
 
