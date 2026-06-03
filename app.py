@@ -443,6 +443,8 @@ if st.button("Optimize Route 🚀"):
     st.write(
         f"Risk Level: {risk}"
     )
+    
+delay = predicted_eta - eta
 
 st.write(
         f"Predicted Delay: {round(delay * 60, 1)} minutes"
