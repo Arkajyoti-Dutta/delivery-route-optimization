@@ -115,16 +115,16 @@ The system successfully:
 ## Dashboard Preview
 
 ### Project Inputs
-![Project Inputs](Project_Inputs.jpeg)
+<img width="1204" height="808" alt="Project_Inputs" src="https://github.com/user-attachments/assets/ccc498f3-3328-4598-8e81-345783032a11" />
 
 ### Optimized Route
-![Optimized Route](Optimized_route.jpeg)
+<img width="1347" height="905" alt="Optimized_route" src="https://github.com/user-attachments/assets/d8ed2d53-c179-4f76-ab65-4e3391b21a50" />
 
 ### Route Distance Distribution
-![Route Distance Distribution](Route_Distance_Distribution.jpeg)
+<img width="1358" height="928" alt="Route_Distance_Distribution" src="https://github.com/user-attachments/assets/06ec7d33-3334-4081-8b37-f99e1249a6e0" />
 
 ### Bhubaneswar Route Map
-![BBSR Map](BBSR_Map.jpeg) 
+<img width="860" height="961" alt="BBSR_Map" src="https://github.com/user-attachments/assets/4e0933cf-7046-4b73-9f82-8915894973ce" />
 
 ---
 
