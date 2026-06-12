@@ -128,6 +128,26 @@ The system successfully:
 
 ---
 
+## Live Dashboard
+
+Access the deployed Streamlit dashboard here:
+
+Dashboard URL:
+https://optiroute-bbsr.streamlit.app
+
+The dashboard provides:
+
+• Route Optimization
+• ETA Prediction
+• Delay Risk Analysis
+• Bottleneck Detection
+• Route Distance Distribution
+• Interactive Route Visualization
+
+Users can directly access the dashboard without installing dependencies locally.
+
+---
+
 ## Future Scope
 
 - Real-time traffic API integration
@@ -153,9 +173,12 @@ pip install -r requirements.txt
 ```
 
 Run the Streamlit application:
-
+https://optiroute-bbsr.streamlit.app
 ```bash
-streamlit run app.py
+
+
+---
+
 ```
 
 ---
