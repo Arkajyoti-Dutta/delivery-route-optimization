@@ -176,9 +176,9 @@ Run the Streamlit application:
 
 ```bash
 streamlit run app.py
-
-
 ```
+
+
 
 ---
 
