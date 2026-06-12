@@ -173,7 +173,7 @@ pip install -r requirements.txt
 ```
 
 Run the Streamlit application:
-https://optiroute-bbsr.streamlit.app
+streamlit run app.py
 ```bash
 
 
